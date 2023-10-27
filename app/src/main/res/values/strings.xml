@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Mobile VR Lab App</string>
+
+    <!-- start_screen strings -->
+    <string name="ek_img_content">ExportKit Image</string>
+    <string name="text_string">Configure</string>
+    <string name="text_ek1_string">Start</string>
+    <string name="mobile_vr_lab_string">Mobile VR Lab</string>
+    <string name="instructor_interface_string">Instructor Interface</string>
+    <string name="v0_1_string">v0.1</string>
 </resources>
