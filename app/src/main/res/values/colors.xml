@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="_bg__start_screen_color">#FFFFFF</color>
+    <color name="_bg__settings_button_ek1_color">#000000</color>
+    <color name="simple_button_bg_color">#D9D9D9</color>
 </resources>

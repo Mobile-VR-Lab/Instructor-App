@@ -1,18 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World! \nMobile VR Lab!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--
+    /*
+     *	This content is generated from the API File Info.
+     *	(Alt+Shift+Ctrl+I).
+     *
+     *	@desc
+     *	@file 		start_screen
+     *	@date 		Tuesday 24th of October 2023 08:35:57 PM
+     *	@title 		VR Experience Main Page
+     *	@author
+     *	@keywords
+     *	@generator 	Export Kit v1.3.figma
+     *
+     */
+    -->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/_bg__start_screen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/_bg__start_screen_shape"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/v0_1"
+            android:layout_width="44dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="false"
+            android:layout_gravity="center|center_horizontal"
+            android:gravity="center"
+            android:text="@string/v0_1_string"
+            android:textColor="@color/_bg__settings_button_ek1_color"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/vr_headset_1"
+                android:layout_width="277dp"
+                android:layout_height="276dp"
+                android:contentDescription="vr_headset_1"
+                android:src="@drawable/vr_headset_1" />
+
+            <TextView
+                android:id="@+id/mobile_vr_lab"
+                android:layout_width="457.4dp"
+                android:layout_height="96.4dp"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/mobile_vr_lab_string"
+                android:textColor="@color/_bg__settings_button_ek1_color"
+                android:textSize="64sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/instructor_interface"
+                android:layout_width="300.2dp"
+                android:layout_height="48.2dp"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginBottom="50dp"
+                android:gravity="center"
+                android:text="@string/instructor_interface_string"
+                android:textColor="@color/_bg__settings_button_ek1_color"
+                android:textSize="32sp"
+                android:textStyle="italic" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:background="#D7D7D7"
+                android:text="Start"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="#D7D7D7"
+                android:text="Configure"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
