@@ -1,0 +1,13 @@
+<vrExperience>
+    <title>my vr experience title</title>
+    <sceneList>
+        <scene>
+            <title>my title 1</title>
+            <script>my script here 1</script>
+        </scene>
+        <scene>
+            <title>my title 2</title>
+            <script>my script here 2</script>
+        </scene>
+    </sceneList>
+</vrExperience>
