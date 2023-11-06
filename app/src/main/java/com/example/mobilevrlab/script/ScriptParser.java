@@ -26,6 +26,9 @@ public class ScriptParser {
 //            printParserContents(parser); // Useful for testing / debugging
 
             return parseVrExperience(parser);
+        } catch (XmlPullParserException e) {
+            System.out.println("The selected XML script file was not formatted correctly.");
+            return null;
         } finally {
             in.close();
         }
@@ -42,6 +45,9 @@ public class ScriptParser {
 
         // Parse scenes in loop
         while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() == XmlPullParser.END_DOCUMENT) {
+                return null;
+            }
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -67,7 +73,10 @@ public class ScriptParser {
         // Parse text in loop
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() == XmlPullParser.TEXT) {
-                scriptTexts.add(new ScriptText(parser.getText()));
+                String text = parser.getText();
+                if (text.trim().length() > 0) {
+                    scriptTexts.add(new ScriptText(text));
+                }
             } else if (parser.getEventType() == XmlPullParser.START_TAG) {
                 String name = parser.getName();
                 if (name.equals("action")) {
