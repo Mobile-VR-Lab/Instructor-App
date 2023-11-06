@@ -96,6 +96,7 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="10dp"
                 android:background="#D7D7D7"
+                android:onClick="toConfigureActivity"
                 android:text="Configure"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
