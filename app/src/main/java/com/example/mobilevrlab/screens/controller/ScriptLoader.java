@@ -4,6 +4,11 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.example.mobilevrlab.script.ScriptParser;
+import com.example.mobilevrlab.script.data.VrExperience;
+
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +38,18 @@ public class ScriptLoader {
                     System.out.println("Error opening file"); // TODO remove in later issue
                     throw new RuntimeException(e);
                 }
+
+                ScriptParser scriptParser = new ScriptParser();
+                VrExperience vrExp = null;
+                try {
+                    vrExp = scriptParser.parseInputStream(contentResolver.openInputStream(uri));
+                } catch (XmlPullParserException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (vrExp != null) {
+                    System.out.println(vrExp.toCombinedString()); // TODO remove in later issue
+                }
             }
         }
     }
@@ -41,7 +58,7 @@ public class ScriptLoader {
     public String readTextFromUri(Uri uri, ContentResolver contentResolver) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         try (InputStream inputStream = contentResolver.openInputStream(uri);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(inputStream)))) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(inputStream)))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
