@@ -3,18 +3,14 @@ package com.example.mobilevrlab.screens.activities;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
 import com.example.mobilevrlab.R;
-
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicBoolean;
+import com.example.mobilevrlab.rest.Command;
+import com.example.mobilevrlab.rest.TcpClient;
 
 public class ScriptActivity extends AppCompatActivity {
 
@@ -55,30 +51,67 @@ public class ScriptActivity extends AppCompatActivity {
 
         transparencyToggle.setOnCheckedChangeListener(toggleListener);
         attentionToggle.setOnCheckedChangeListener(toggleListener);
+
+        TcpClient.getInstance().subscribe(this::handleMessageReceived);
+    }
+
+    public void handleMessageReceived(String message) {
+        // received message from server
+        System.out.println(message);
+
+        // for now, just display a popup
+        runOnUiThread(() -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ScriptActivity.this);
+            builder.setMessage(message);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+    }
+
+    public void sendCommand(Command command) {
+        TcpClient.sendCommandToServer(command, (response, e) -> {
+            if (e != null) {
+                e.printStackTrace();
+            } else {
+                System.out.println(response);
+            }
+        });
     }
 
 
     public void activateTransparencyMode(CompoundButton view) {
         doubleCheck("Activate transparency mode?", result -> {
             setCheckedWithoutListener(transparencyToggle, result);
+            if (result) {
+                sendCommand(Command.ACTIVATE_TRANSPARENCY_MODE);
+            }
         });
     }
 
     public void deactivateTransparencyMode(CompoundButton view) {
         doubleCheck("Deactivate transparency mode?", result -> {
             setCheckedWithoutListener(transparencyToggle, !result);
+            if (!result) {
+                sendCommand(Command.DEACTIVATE_TRANSPARENCY_MODE);
+            }
         });
     }
 
     public void activateAttentionMode(CompoundButton view) {
         doubleCheck("Activate attention mode?", result -> {
             setCheckedWithoutListener(attentionToggle, result);
+            if (result) {
+                sendCommand(Command.ACTIVATE_ATTENTION_MODE);
+            }
         });
     }
 
     public void deactivateAttentionMode(CompoundButton view) {
         doubleCheck("Deactivate attention mode?", result -> {
             setCheckedWithoutListener(attentionToggle, !result);
+            if (!result) {
+                sendCommand(Command.DEACTIVATE_ATTENTION_MODE);
+            }
         });
     }
 
