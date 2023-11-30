@@ -10,7 +10,7 @@ import android.widget.ToggleButton;
 
 import com.example.mobilevrlab.R;
 import com.example.mobilevrlab.rest.Command;
-import com.example.mobilevrlab.rest.TcpClient;
+import com.example.mobilevrlab.rest.RestClient;
 
 public class ScriptActivity extends AppCompatActivity {
 
@@ -52,7 +52,7 @@ public class ScriptActivity extends AppCompatActivity {
         transparencyToggle.setOnCheckedChangeListener(toggleListener);
         attentionToggle.setOnCheckedChangeListener(toggleListener);
 
-        TcpClient.getInstance().subscribe(this::handleMessageReceived);
+        RestClient.getInstance().subscribe(this::handleMessageReceived);
     }
 
     public void handleMessageReceived(String message) {
@@ -69,7 +69,7 @@ public class ScriptActivity extends AppCompatActivity {
     }
 
     public void sendCommand(Command command) {
-        TcpClient.sendCommandToServer(command, (response, e) -> {
+        RestClient.sendCommandToServer(command, (response, e) -> {
             if (e != null) {
                 e.printStackTrace();
             } else {
