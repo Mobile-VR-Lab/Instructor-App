@@ -88,6 +88,7 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="20dp"
                 android:background="#D7D7D7"
+                android:onClick="toVrExperienceActivity"
                 android:text="Start"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 

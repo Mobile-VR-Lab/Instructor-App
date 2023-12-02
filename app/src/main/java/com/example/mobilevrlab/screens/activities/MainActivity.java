@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.mobilevrlab.R;
+import com.example.mobilevrlab.script.ScriptSingleton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,5 +23,15 @@ public class MainActivity extends AppCompatActivity {
     public void toConfigureActivity(View view) {
         Intent intent = new Intent(this, ConfigureActivity.class);
         startActivity(intent);
+    }
+
+    public void toVrExperienceActivity(View view) {
+        // Check if a script file has been loaded
+        if (ScriptSingleton.getInstance().getVrExperience() == null) {
+            Toast.makeText(this, "No Script File Selected", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(this, VrExperienceActivity.class);
+            startActivity(intent);
+        }
     }
 }
