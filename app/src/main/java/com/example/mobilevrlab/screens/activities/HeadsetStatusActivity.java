@@ -42,6 +42,9 @@ public class HeadsetStatusActivity extends AppCompatActivity {
 
         buttonRefresh.setOnClickListener(v -> getHeadsetStatuses());
 
+        Button backButton = findViewById(R.id.back_button);
+        backButton.setOnClickListener(v -> finish());
+
         // Initial refresh on activity start
         getHeadsetStatuses();
     }

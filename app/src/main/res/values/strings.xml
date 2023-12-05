@@ -12,4 +12,5 @@
     <string name="headset_name">Headset Name</string>
     <string name="refresh">Refresh</string>
     <string name="headset_status_monitoring">Headset Status Monitoring</string>
+    <string name="back">Back</string>
 </resources>
