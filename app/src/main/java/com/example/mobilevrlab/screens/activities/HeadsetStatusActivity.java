@@ -4,16 +4,22 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.ToggleButton;
+import android.widget.TextView;
 
+import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mobilevrlab.R;
+import com.example.mobilevrlab.rest.Command;
 import com.example.mobilevrlab.rest.RestClient;
 
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class HeadsetStatusActivity extends AppCompatActivity {
 
@@ -25,51 +31,64 @@ public class HeadsetStatusActivity extends AppCompatActivity {
     }
 
     private LinearLayout linearLayoutHeadsets;
-    private Button buttonRefresh;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_headset_status);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE);
         linearLayoutHeadsets = findViewById(R.id.linearLayout_headsets);
-        buttonRefresh = findViewById(R.id.button_refresh);
+        Button buttonRefresh = findViewById(R.id.button_refresh);
 
-        buttonRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refreshHeadsetStatuses();
-            }
-        });
+        buttonRefresh.setOnClickListener(v -> getHeadsetStatuses());
 
         // Initial refresh on activity start
-        refreshHeadsetStatuses();
-    }
-
-    private void refreshHeadsetStatuses() {
-        // Clear previous status views
-        linearLayoutHeadsets.removeAllViews();
-
-        // Fetch the latest headset statuses
-        List<HeadsetStatus> headsetStatuses = getHeadsetStatuses();
-
-        // Iterate over the headset statuses and create a view for each one
-        for (HeadsetStatus status : headsetStatuses) {
-            View headsetStatusView = createHeadsetStatusView(status);
-            linearLayoutHeadsets.addView(headsetStatusView);
-        }
+        getHeadsetStatuses();
     }
 
     private View createHeadsetStatusView(HeadsetStatus status) {
-        // Inflate a custom layout for the headset status
-        // Set the battery level, error status, and connection status
-        // Return the created view
-        return null;
+        // Inflate the custom layout for the headset status
+        View headsetStatusView = getLayoutInflater().inflate(R.layout.headset_status_item, null);
+
+        // Find and set the TextViews for name, battery level, and error status
+        TextView textViewName = headsetStatusView.findViewById(R.id.textViewHeadsetName);
+        TextView textViewBattery = headsetStatusView.findViewById(R.id.textViewBatteryLevel);
+        TextView textViewError = headsetStatusView.findViewById(R.id.textViewErrorStatus);
+        TextView textViewConnection = headsetStatusView.findViewById(R.id.textViewConnectionStatus);
+
+        textViewName.setText(status.name);
+        textViewBattery.setText(String.format("Battery: %s", status.batteryLevel));
+        textViewConnection.setText(String.format("Connection: %s", status.connectionStatus));
+        textViewError.setText(String.format("Error: %s", status.errorStatus.isEmpty() ? "No errors" : status.errorStatus));
+
+        return headsetStatusView;
     }
 
-    private List<HeadsetStatus> getHeadsetStatuses() {
-        // Fetch the latest headset statuses
-        // This could involve making a network request or querying a local database
+    @UiThread
+    private void getHeadsetStatuses() {
+        linearLayoutHeadsets.removeAllViews();
+
         // Return a list of HeadsetStatus objects
-        return null;
+        RestClient.sendCommandToServer(Command.GET_STATUSES, (response, e) -> {
+            if (e != null) {
+                e.printStackTrace();
+            } else {
+                System.out.println(response);
+                // Parse the JSON response into a List of HeadsetStatus objects
+                Type listType = new TypeToken<List<HeadsetStatus>>(){}.getType();
+                List<HeadsetStatus> headsetStatuses = new Gson().fromJson(response, listType);
+                // Iterate over the headset statuses and create a view for each one
+                if (headsetStatuses == null) {
+                    return;
+                }
+                for (HeadsetStatus status : headsetStatuses) {
+                    if (status == null) {
+                        continue;
+                    }
+                    View headsetStatusView = createHeadsetStatusView(status);
+                    linearLayoutHeadsets.addView(headsetStatusView);
+                }
+            }
+        });
     }
 }
