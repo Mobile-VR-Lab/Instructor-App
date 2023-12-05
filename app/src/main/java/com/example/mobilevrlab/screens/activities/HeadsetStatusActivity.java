@@ -58,7 +58,7 @@ public class HeadsetStatusActivity extends AppCompatActivity {
 
         textViewName.setText(status.name);
         textViewBattery.setText(String.format("Battery: %s", status.batteryLevel));
-        textViewConnection.setText(String.format("Connection: %s", status.connectionStatus));
+        textViewConnection.setText(String.format("Status: %s", status.connectionStatus));
         textViewError.setText(String.format("Error: %s", status.errorStatus.isEmpty() ? "No errors" : status.errorStatus));
 
         return headsetStatusView;
@@ -73,16 +73,18 @@ public class HeadsetStatusActivity extends AppCompatActivity {
             if (e != null) {
                 e.printStackTrace();
             } else {
-                System.out.println(response);
+                //System.out.println(response);
                 // Parse the JSON response into a List of HeadsetStatus objects
                 Type listType = new TypeToken<List<HeadsetStatus>>(){}.getType();
                 List<HeadsetStatus> headsetStatuses = new Gson().fromJson(response, listType);
                 // Iterate over the headset statuses and create a view for each one
                 if (headsetStatuses == null) {
+                    System.out.println("Headset statuses is null");
                     return;
                 }
                 for (HeadsetStatus status : headsetStatuses) {
                     if (status == null) {
+                        System.out.println("Headset status is null");
                         continue;
                     }
                     View headsetStatusView = createHeadsetStatusView(status);

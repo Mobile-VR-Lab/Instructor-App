@@ -281,7 +281,7 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout12"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/headset_status_button"
             app:layout_constraintStart_toEndOf="@+id/constraintLayout14"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout8">
 
@@ -312,8 +312,8 @@
             android:id="@+id/constraintLayout14"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
+            android:layout_marginStart="200dp"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout12"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout13"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout8">
 
@@ -338,6 +338,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/headset_status_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="200dp"
+            android:backgroundTint="#D2D2D2"
+            android:text="View Headset Statuses"
+            android:textColor="@color/black"
+            app:iconTint="#D2D2D2"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout8" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

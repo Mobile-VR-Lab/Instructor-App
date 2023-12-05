@@ -23,7 +23,7 @@ public class RestClient {
 
     private final OkHttpClient client;
     private final Gson gson = new Gson();
-    private final String baseUrl = "http://0.0.0.0:8080/"; // replace with actual server URL
+    private final String baseUrl = "https://localhost:8080/"; // replace with actual server URL
 
     private BufferedReader input;
     private PrintWriter output;
@@ -58,6 +58,13 @@ public class RestClient {
     }
 
     protected void sendCommandToServer_(Command command, ResponseCallback callback) {
+
+        if (command == Command.GET_STATUSES) { // TODO remove this
+            String mockResponse = "[{\"name\":\"Headset 1\",\"connectionStatus\":\"Connected\",\"batteryLevel\":\"80\",\"errorStatus\":\"\"}]";
+            callback.onCompleted(mockResponse, null);
+            return;
+        }
+
         String data = gson.toJson(command);
         RequestBody body = RequestBody.create(data, MediaType.get("application/json; charset=utf-8"));
 

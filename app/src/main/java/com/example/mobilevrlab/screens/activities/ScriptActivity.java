@@ -3,8 +3,11 @@ package com.example.mobilevrlab.screens.activities;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
@@ -16,6 +19,7 @@ public class ScriptActivity extends AppCompatActivity {
 
     private ToggleButton transparencyToggle;
     private ToggleButton attentionToggle;
+    private Button statusButton;
     private CompoundButton.OnCheckedChangeListener toggleListener;
 
     @Override
@@ -26,6 +30,9 @@ public class ScriptActivity extends AppCompatActivity {
 
         transparencyToggle = findViewById(R.id.transparency_toggle);
         attentionToggle = findViewById(R.id.attention_toggle);
+        statusButton = findViewById(R.id.headset_status_button);
+
+        statusButton.setOnClickListener(this::toHeadsetStatusActivity);
 
         toggleListener = (v, isChecked) -> {
 
@@ -53,6 +60,11 @@ public class ScriptActivity extends AppCompatActivity {
         attentionToggle.setOnCheckedChangeListener(toggleListener);
 
         RestClient.getInstance().subscribe(this::handleMessageReceived);
+    }
+
+    public void toHeadsetStatusActivity(View view) {
+        Intent intent = new Intent(this, HeadsetStatusActivity.class);
+        startActivity(intent);
     }
 
     public void handleMessageReceived(String message) {
