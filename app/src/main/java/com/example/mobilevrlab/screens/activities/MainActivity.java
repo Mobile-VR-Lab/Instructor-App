@@ -22,4 +22,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ConfigureActivity.class);
         startActivity(intent);
     }
+
+    public void toScriptActivity(View view) {
+        Intent intent = new Intent(this, ScriptActivity.class);
+        startActivity(intent);
+    }
 }
