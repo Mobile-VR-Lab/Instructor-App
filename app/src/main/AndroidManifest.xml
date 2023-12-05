@@ -6,21 +6,16 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/vr_headset_1"
         android:label="@string/app_name"
+        android:icon="@drawable/vr_headset_1"
         android:roundIcon="@drawable/vr_headset_1"
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileVRLabApp"
         tools:targetApi="31">
         <activity
-            android:name=".screens.activities.ScriptActivity"
-            android:exported="false"
-            android:label="@string/title_activity_script"
-            android:theme="@style/Theme.MobileVRLabApp" />
-        <activity
             android:name=".screens.activities.MainActivity"
             android:exported="true"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
