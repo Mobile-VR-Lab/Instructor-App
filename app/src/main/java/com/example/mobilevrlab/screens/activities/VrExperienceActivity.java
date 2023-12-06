@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobilevrlab.R;
 import com.example.mobilevrlab.screens.controller.VrExperienceController;
+
+import java.util.ArrayList;
 
 /**
  * This activity assumes a Script XML File has been imported, parsed, and saved into the ScriptSingleton instance.
@@ -20,6 +24,7 @@ public class VrExperienceActivity extends AppCompatActivity {
     TextView vr_exp_title;
     TextView vr_scene_title;
     TextView vr_action_count;
+    LinearLayout scene_buttons_layout;
 
     /**
      * Create this activity and connect the layout file.
@@ -42,17 +47,34 @@ public class VrExperienceActivity extends AppCompatActivity {
         vr_exp_title = (TextView) findViewById(R.id.vr_exp_title);
         vr_scene_title = (TextView) findViewById(R.id.vr_scene_title);
         vr_action_count = (TextView) findViewById(R.id.vr_action_count);
+        scene_buttons_layout = (LinearLayout) findViewById(R.id.scene_buttons_layout);
     }
 
     /**
      * Display all of the initial script details to the user.
+     * Create the scene buttons dynamically for directly changing the scene.
      */
     @Override
     protected void onStart() {
         super.onStart();
         vr_exp_title.setText(controller.getVrExpTitle());
-        vr_scene_title.setText(controller.getVrSceneTitle());
-        vr_action_count.setText(controller.getVrSceneActionCount());
+        loadCurrentSceneData();
+
+        // Add dynamic scene buttons
+        ArrayList<String> sceneNames = controller.getAllSceneTitles();
+        for (int i = 0; i < sceneNames.size(); i++) {
+            View sceneButtonView = getLayoutInflater().inflate(R.layout.scene_button, scene_buttons_layout, false);
+            Button sceneButton = (Button) sceneButtonView.findViewById(R.id.scene_button);
+            sceneButton.setText(sceneNames.get(i));
+            sceneButton.setTag(i); // Storing index of scene into tag of view to be read from later
+            sceneButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    onSceneButtonClick(v, (int) v.getTag());
+                }
+            });
+            scene_buttons_layout.addView(sceneButtonView);
+        }
+        // TODO abstract out into display?
     }
 
     /**
@@ -64,21 +86,40 @@ public class VrExperienceActivity extends AppCompatActivity {
         System.out.println("Log user pressed back button"); // TODO replace with logger in future issue
     }
 
+    // TODO comment
+    protected void loadCurrentSceneData() {
+        vr_scene_title.setText(controller.getVrSceneTitle());
+        vr_action_count.setText(controller.getVrSceneActionCount());
+        // TODO load script for scene next
+    }
+
+    // TODO comment
     public void onNext(View view) {
+        System.out.println("Next button clicked!"); // TODO replace with logger
         if (controller.nextScene()) {
-            vr_scene_title.setText(controller.getVrSceneTitle());
-            vr_action_count.setText(controller.getVrSceneActionCount());
+            loadCurrentSceneData();
         } else {
             Toast.makeText(this, "End Of Scenes", Toast.LENGTH_SHORT).show();
         }
     }
 
+    // TODO comment
     public void onPrevious(View view) {
+        System.out.println("Previous button clicked!"); // TODO replace with logger
         if (controller.previousScene()) {
-            vr_scene_title.setText(controller.getVrSceneTitle());
-            vr_action_count.setText(controller.getVrSceneActionCount());
+            loadCurrentSceneData();
         } else {
             Toast.makeText(this, "End Of Scenes", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // TODO comment
+    public void onSceneButtonClick(View view, int index) {
+        System.out.println("Scene button " + index + " clicked!"); // TODO replace with logger
+        if (controller.setSceneIndex(index)) {
+            loadCurrentSceneData();
+        } else {
+            Toast.makeText(this, "ERROR: Scene Not Available", Toast.LENGTH_SHORT).show();
         }
     }
 }
