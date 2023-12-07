@@ -9,7 +9,8 @@ import java.util.stream.Stream;
 
 /**
  * A controller for the business logic for the VR Experience Activity.
- * Is responsible for interacting with the stored VR Experience script data.
+ * Is responsible for interacting with the stored VR Experience script data and keeping track of the
+ * current scene index being displayed to the user.
  */
 public class VrExperienceController {
 
@@ -23,7 +24,11 @@ public class VrExperienceController {
         script = ScriptSingleton.getInstance().getVrExperience();
     }
 
-    // TODO comment
+    /**
+     * Advance the scene, if possible. If at the end of the scenes list, do not advance.
+     *
+     * @return true if can advance, false if cannot
+     */
     public boolean nextScene() {
         if (currentScene + 1 < script.sceneList.size()) {
             currentScene++;
@@ -33,7 +38,11 @@ public class VrExperienceController {
         }
     }
 
-    // TODO comment
+    /**
+     * Go back a scene, if possible. If at the beginning fo the scenes list, do not go back.
+     *
+     * @return true if can go back, false if cannot
+     */
     public boolean previousScene() {
         if (currentScene - 1 >= 0) {
             currentScene--;
@@ -43,7 +52,12 @@ public class VrExperienceController {
         }
     }
 
-    // TODO comment
+    /**
+     * Set the current scene to a specific index (such as clicking a scene button directly).
+     *
+     * @param index of scene to set
+     * @return true if scene index is possible, false if it is out of bounds
+     */
     public boolean setSceneIndex(int index) {
         if (index >= 0 && index < script.sceneList.size()) {
             currentScene = index;
@@ -55,6 +69,7 @@ public class VrExperienceController {
 
     /**
      * Get the title of the overall VR Experience.
+     *
      * @return VR Exp Title string
      */
     public String getVrExpTitle() {
@@ -63,29 +78,45 @@ public class VrExperienceController {
 
     /**
      * Get the title of a scene by its index.
+     *
      * @return title of that VR Scene
      */
     public String getVrSceneTitle() {
-        // TODO handle out of bounds here
-        return script.sceneList.get(currentScene).title;
+        if (currentScene >= 0 && currentScene < script.sceneList.size()) {
+            return script.sceneList.get(currentScene).title;
+        } else {
+            return "Error: Scene index out of bounds"; // TODO replace with error logger in future issue
+        }
     }
 
-    // TODO comment
+    /**
+     * Get the titles of all of the scenes in an Array List.
+     *
+     * @return ArrayList of scene title Strings
+     */
     public ArrayList<String> getAllSceneTitles() {
         return new ArrayList<>(script.sceneList.stream().map(s -> s.title).collect(Collectors.toList()));
     }
 
     /**
      * Get the text to display the count of actions in this scene.
+     *
      * @return actions count String
      */
     public String getVrSceneActionCount() {
-        // TODO handle out of bounds
-        long count = script.sceneList.get(currentScene).script.stream().filter(s -> s.isAction()).count();
-        return count + (count == 1 ? " Action" : " Actions");
+        if (currentScene >= 0 && currentScene < script.sceneList.size()) {
+            long count = script.sceneList.get(currentScene).script.stream().filter(s -> s.isAction()).count();
+            return count + (count == 1 ? " Action" : " Actions");
+        } else {
+            return "Error: Scene index out of bounds"; // TODO replace with error logger in future issue
+        }
     }
 
-    // TODO comment
+    /**
+     * Get a Stream of the Scene's script texts, which are a mix of plain text and clickable actions.
+     *
+     * @return Stream of script texts as CharSequence
+     */
     public Stream<CharSequence> getVrSceneScriptText() {
         return script.sceneList.get(currentScene).script.stream().map(s -> s.toCharSequence());
     }

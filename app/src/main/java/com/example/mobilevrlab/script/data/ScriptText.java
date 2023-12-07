@@ -13,12 +13,22 @@ public class ScriptText {
         return false;
     }
 
+    /**
+     * Create a String representation of this object, which is useful for debugging.
+     *
+     * @return String representation
+     */
     @NonNull
     @Override
     public String toString() {
         return "ScriptText: " + text;
     }
 
+    /**
+     * Create a CharSequence of this object, for displaying the script to the user.
+     *
+     * @return CharSequence representation
+     */
     public CharSequence toCharSequence() {
         return (CharSequence) text;
     }

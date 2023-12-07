@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -69,18 +67,28 @@ public class VrExperienceActivity extends AppCompatActivity {
         // Add dynamic scene buttons
         ArrayList<String> sceneNames = controller.getAllSceneTitles();
         for (int i = 0; i < sceneNames.size(); i++) {
-            View sceneButtonView = getLayoutInflater().inflate(R.layout.scene_button, scene_buttons_layout, false);
-            Button sceneButton = (Button) sceneButtonView.findViewById(R.id.scene_button);
-            sceneButton.setText(sceneNames.get(i));
-            sceneButton.setTag(i); // Storing index of scene into tag of view to be read from later
-            sceneButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    onSceneButtonClick(v, (int) v.getTag());
-                }
-            });
-            scene_buttons_layout.addView(sceneButtonView);
+            scene_buttons_layout.addView(createSceneButton(sceneNames.get(i), i));
         }
-        // TODO abstract out into display?
+    }
+
+    /**
+     * Create a single Scene Button View to be added into the scene list.
+     *
+     * @param text to display on button
+     * @param index of the corresponding scene
+     * @return configured View of the scene button
+     */
+    private View createSceneButton(String text, int index) {
+        View sceneButtonView = getLayoutInflater().inflate(R.layout.scene_button, scene_buttons_layout, false);
+        Button sceneButton = (Button) sceneButtonView.findViewById(R.id.scene_button);
+        sceneButton.setText(text);
+        sceneButton.setTag(index); // Storing index of scene into tag of view to be read from later
+        sceneButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onSceneButtonClick((int) v.getTag());
+            }
+        });
+        return sceneButtonView;
     }
 
     /**
@@ -92,7 +100,9 @@ public class VrExperienceActivity extends AppCompatActivity {
         System.out.println("Log user pressed back button"); // TODO replace with logger in future issue
     }
 
-    // TODO comment
+    /**
+     * Load the current Scene's title, action count, and script texts into the activity.
+     */
     protected void loadCurrentSceneData() {
         vr_scene_title.setText(controller.getVrSceneTitle());
         vr_action_count.setText(controller.getVrSceneActionCount());
@@ -102,7 +112,11 @@ public class VrExperienceActivity extends AppCompatActivity {
         controller.getVrSceneScriptText().forEach(charseq -> script_text.append(charseq));
     }
 
-    // TODO comment
+    /**
+     * When the user clicks the "Next" button to advance the scene, only advance the scene if possible.
+     *
+     * @param view of button
+     */
     public void onNext(View view) {
         System.out.println("Next button clicked!"); // TODO replace with logger
         if (controller.nextScene()) {
@@ -112,7 +126,11 @@ public class VrExperienceActivity extends AppCompatActivity {
         }
     }
 
-    // TODO comment
+    /**
+     * When the user clicks the "Previous" button to go back a scene, only go back if possible.
+     *
+     * @param view of button
+     */
     public void onPrevious(View view) {
         System.out.println("Previous button clicked!"); // TODO replace with logger
         if (controller.previousScene()) {
@@ -122,8 +140,12 @@ public class VrExperienceActivity extends AppCompatActivity {
         }
     }
 
-    // TODO comment
-    public void onSceneButtonClick(View view, int index) {
+    /**
+     * When a specific scene button is clicked, then go to that scene.
+     *
+     * @param index of scene selected
+     */
+    public void onSceneButtonClick(int index) {
         System.out.println("Scene button " + index + " clicked!"); // TODO replace with logger
         if (controller.setSceneIndex(index)) {
             loadCurrentSceneData();

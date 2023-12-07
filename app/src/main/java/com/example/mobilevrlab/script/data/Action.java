@@ -22,12 +22,24 @@ public class Action extends ScriptText {
         return true;
     }
 
+    /**
+     * Create a String representation of this object, which is useful for debugging.
+     *
+     * @return String representation
+     */
     @NonNull
     @Override
     public String toString() {
         return "Action: " + text + " (#" + id + ", '" + type + "')";
     }
 
+    /**
+     * Create a CharSequence of this object, for displaying the script to the user.
+     * This also includes creating a SpannableString and linking an ActionClickableSpan to that String
+     * so that the Action looks like a hyperlink in text but will actually trigger a custom function when clicked.
+     *
+     * @return CharSequence representation
+     */
     @Override
     public CharSequence toCharSequence() {
         SpannableString spannableStr = new SpannableString(text);
