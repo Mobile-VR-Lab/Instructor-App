@@ -18,4 +18,8 @@ public class ScriptText {
     public String toString() {
         return "ScriptText: " + text;
     }
+
+    public CharSequence toCharSequence() {
+        return (CharSequence) text;
+    }
 }

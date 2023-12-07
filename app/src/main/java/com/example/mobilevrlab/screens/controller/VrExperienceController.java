@@ -5,6 +5,7 @@ import com.example.mobilevrlab.script.data.VrExperience;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * A controller for the business logic for the VR Experience Activity.
@@ -82,5 +83,10 @@ public class VrExperienceController {
         // TODO handle out of bounds
         long count = script.sceneList.get(currentScene).script.stream().filter(s -> s.isAction()).count();
         return count + (count == 1 ? " Action" : " Actions");
+    }
+
+    // TODO comment
+    public Stream<CharSequence> getVrSceneScriptText() {
+        return script.sceneList.get(currentScene).script.stream().map(s -> s.toCharSequence());
     }
 }

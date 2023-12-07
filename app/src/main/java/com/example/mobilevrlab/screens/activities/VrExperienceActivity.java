@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -24,6 +27,7 @@ public class VrExperienceActivity extends AppCompatActivity {
     TextView vr_exp_title;
     TextView vr_scene_title;
     TextView vr_action_count;
+    TextView script_text;
     LinearLayout scene_buttons_layout;
 
     /**
@@ -47,6 +51,8 @@ public class VrExperienceActivity extends AppCompatActivity {
         vr_exp_title = (TextView) findViewById(R.id.vr_exp_title);
         vr_scene_title = (TextView) findViewById(R.id.vr_scene_title);
         vr_action_count = (TextView) findViewById(R.id.vr_action_count);
+        script_text = (TextView) findViewById(R.id.script_text);
+        script_text.setMovementMethod(LinkMovementMethod.getInstance());
         scene_buttons_layout = (LinearLayout) findViewById(R.id.scene_buttons_layout);
     }
 
@@ -90,7 +96,10 @@ public class VrExperienceActivity extends AppCompatActivity {
     protected void loadCurrentSceneData() {
         vr_scene_title.setText(controller.getVrSceneTitle());
         vr_action_count.setText(controller.getVrSceneActionCount());
+
         // TODO load script for scene next
+        script_text.setText(""); // Clear
+        controller.getVrSceneScriptText().forEach(charseq -> script_text.append(charseq));
     }
 
     // TODO comment
