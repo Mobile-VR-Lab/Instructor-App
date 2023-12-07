@@ -25,6 +25,16 @@ public class VrExperienceController {
     }
 
     /**
+     * Method for TESTING only!
+     * Get the script that is used inside fo this controller.
+     *
+     * @return VrExperience script
+     */
+    public VrExperience getScript() {
+        return script;
+    }
+
+    /**
      * Advance the scene, if possible. If at the end of the scenes list, do not advance.
      *
      * @return true if can advance, false if cannot

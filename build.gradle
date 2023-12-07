@@ -2,3 +2,12 @@
 plugins {
 id 'com.android.application' version '8.1.2' apply false
 }
+
+// For Powermockito compatibility with JDK17
+// https://groups.google.com/g/powermock/c/hLLVa3fn6BE
+subprojects{
+    tasks.withType(Test).configureEach{
+        jvmArgs = jvmArgs + ['--add-opens=java.base/java.lang=ALL-UNNAMED']
+        jvmArgs = jvmArgs + ['--add-opens=java.base/java.io=ALL-UNNAMED']
+    }
+}
