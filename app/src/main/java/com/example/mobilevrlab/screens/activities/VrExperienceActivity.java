@@ -97,7 +97,7 @@ public class VrExperienceActivity extends AppCompatActivity {
         vr_scene_title.setText(controller.getVrSceneTitle());
         vr_action_count.setText(controller.getVrSceneActionCount());
 
-        // TODO load script for scene next
+        // Load script texts for the current scenes
         script_text.setText(""); // Clear
         controller.getVrSceneScriptText().forEach(charseq -> script_text.append(charseq));
     }

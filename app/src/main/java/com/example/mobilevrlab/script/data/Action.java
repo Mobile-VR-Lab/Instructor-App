@@ -1,8 +1,13 @@
 package com.example.mobilevrlab.script.data;
 
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ClickableSpan;
 
 import androidx.annotation.NonNull;
+
+import com.example.mobilevrlab.script.ActionClickableSpan;
 
 public class Action extends ScriptText {
     public final String id;
@@ -27,8 +32,8 @@ public class Action extends ScriptText {
 
     @Override
     public CharSequence toCharSequence() {
-        // TODO replace with REST API calls in a future issue
-        // TODO remove hyperlink and make this a clickable element
-        return (CharSequence) Html.fromHtml("<a href='http://www.google.com'>" + text + "</a>");
+        SpannableString spannableStr = new SpannableString(text);
+        spannableStr.setSpan(new ActionClickableSpan(this), 0, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableStr;
     }
 }
