@@ -1,13 +1,11 @@
 package com.example.mobilevrlab.script.data;
 
-import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.style.ClickableSpan;
 
 import androidx.annotation.NonNull;
 
-import com.example.mobilevrlab.script.ActionClickableSpan;
+import com.example.mobilevrlab.screens.ui.ActionClickableSpan;
 
 public class Action extends ScriptText {
     public final String id;

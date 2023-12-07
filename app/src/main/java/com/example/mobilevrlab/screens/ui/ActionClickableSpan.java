@@ -1,4 +1,4 @@
-package com.example.mobilevrlab.script;
+package com.example.mobilevrlab.screens.ui;
 
 import android.text.style.ClickableSpan;
 import android.view.View;

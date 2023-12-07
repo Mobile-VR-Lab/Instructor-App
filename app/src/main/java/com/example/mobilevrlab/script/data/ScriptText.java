@@ -6,7 +6,7 @@ public class ScriptText {
     public final String text;
 
     public ScriptText(String text) {
-        this.text = text.trim();
+        this.text = text;
     }
 
     public boolean isAction() {
