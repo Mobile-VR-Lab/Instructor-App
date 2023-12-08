@@ -9,5 +9,7 @@ subprojects{
     tasks.withType(Test).configureEach{
         jvmArgs = jvmArgs + ['--add-opens=java.base/java.lang=ALL-UNNAMED']
         jvmArgs = jvmArgs + ['--add-opens=java.base/java.io=ALL-UNNAMED']
+        jvmArgs = jvmArgs + ['--add-opens=java.base/java.util=ALL-UNNAMED']
+        jvmArgs = jvmArgs + ['--add-opens=java.base/java.util.stream=ALL-UNNAMED']
     }
 }
