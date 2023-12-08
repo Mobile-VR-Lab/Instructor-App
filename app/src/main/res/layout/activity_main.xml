@@ -90,7 +90,6 @@
                 android:background="#D7D7D7"
                 android:onClick="toVrExperienceActivity"
                 android:text="Start"
-                android:onClick="toScriptActivity"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <androidx.appcompat.widget.AppCompatButton

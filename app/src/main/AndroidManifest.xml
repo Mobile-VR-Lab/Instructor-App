@@ -16,11 +16,6 @@
         android:theme="@style/Theme.MobileVRLabApp"
         tools:targetApi="31">
         <activity
-            android:name=".screens.activities.ScriptActivity"
-            android:exported="false"
-            android:label="@string/title_activity_script"
-            android:theme="@style/Theme.MobileVRLabApp" />
-        <activity
             android:name=".screens.activities.HeadsetStatusActivity"
             android:exported="false"
             android:label="Headset Status Activity"

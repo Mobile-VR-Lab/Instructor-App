@@ -1,17 +1,24 @@
 package com.example.mobilevrlab.screens.activities;
 
+import androidx.annotation.ColorInt;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobilevrlab.R;
+import com.example.mobilevrlab.rest.Command;
+import com.example.mobilevrlab.rest.RestClient;
 import com.example.mobilevrlab.screens.controller.VrExperienceController;
 
 import java.util.ArrayList;
@@ -21,12 +28,19 @@ import java.util.ArrayList;
  */
 public class VrExperienceActivity extends AppCompatActivity {
     VrExperienceController controller;
+    final @ColorInt int deactivatedModeColor = Color.parseColor("#CB989898");
 
+    /**
+     * UI Variables
+     */
+    TextView attention_toggle;
+    TextView transparency_toggle;
+    ImageView status_button;
     TextView vr_exp_title;
+    LinearLayout scene_buttons_layout;
     TextView vr_scene_title;
     TextView vr_action_count;
     TextView script_text;
-    LinearLayout scene_buttons_layout;
 
     /**
      * Create this activity and connect the layout file.
@@ -46,12 +60,28 @@ public class VrExperienceActivity extends AppCompatActivity {
 
         controller = new VrExperienceController();
 
+        attention_toggle = (TextView) findViewById(R.id.attention_toggle);
+        attention_toggle.setTag(false);
+        attention_toggle.setOnClickListener(this::toggleAttentionMode);
+        transparency_toggle = (TextView) findViewById(R.id.transparency_toggle);
+        transparency_toggle.setTag(false);
+        transparency_toggle.setOnClickListener(this::toggleTransparencyMode);
+        status_button = (ImageView) findViewById(R.id.status_button);
+        status_button.setOnClickListener(this::toHeadsetStatusActivity);
         vr_exp_title = (TextView) findViewById(R.id.vr_exp_title);
+        scene_buttons_layout = (LinearLayout) findViewById(R.id.scene_buttons_layout);
         vr_scene_title = (TextView) findViewById(R.id.vr_scene_title);
         vr_action_count = (TextView) findViewById(R.id.vr_action_count);
         script_text = (TextView) findViewById(R.id.script_text);
         script_text.setMovementMethod(LinkMovementMethod.getInstance());
-        scene_buttons_layout = (LinearLayout) findViewById(R.id.scene_buttons_layout);
+
+        // Add dynamic scene buttons
+        ArrayList<String> sceneNames = controller.getAllSceneTitles();
+        for (int i = 0; i < sceneNames.size(); i++) {
+            scene_buttons_layout.addView(createSceneButton(sceneNames.get(i), i));
+        }
+
+        RestClient.getInstance().subscribe(this::handleMessageReceived);
     }
 
     /**
@@ -63,12 +93,6 @@ public class VrExperienceActivity extends AppCompatActivity {
         super.onStart();
         vr_exp_title.setText(controller.getVrExpTitle());
         loadCurrentSceneData();
-
-        // Add dynamic scene buttons
-        ArrayList<String> sceneNames = controller.getAllSceneTitles();
-        for (int i = 0; i < sceneNames.size(); i++) {
-            scene_buttons_layout.addView(createSceneButton(sceneNames.get(i), i));
-        }
     }
 
     /**
@@ -152,5 +176,87 @@ public class VrExperienceActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "ERROR: Scene Not Available", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    // TODO comment
+    public void handleMessageReceived(String message) {
+        // received message from server
+        System.out.println(message);
+
+        // for now, just display a popup
+        runOnUiThread(() -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(message);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+    }
+
+    // TODO comment
+    public void toHeadsetStatusActivity(View view) {
+        Intent intent = new Intent(this, HeadsetStatusActivity.class);
+        startActivity(intent);
+    }
+
+    // TODO comment
+    public void sendCommand(Command command) {
+        RestClient.sendCommandToServer(command, (response, e) -> {
+            if (e != null) {
+                e.printStackTrace();
+            } else {
+                System.out.println(response);
+            }
+        });
+    }
+
+    // TODO comment
+    public interface DoubleCheckCallback {
+        void onResult(boolean result);
+    }
+
+    // TODO comment
+    public void doubleCheck(String message, DoubleCheckCallback callback) {
+        runOnUiThread(() -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(message);
+            builder.setPositiveButton("Yes", (dialog, which) -> callback.onResult(true));
+            builder.setNegativeButton("No", (dialog, which) -> callback.onResult(false));
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+    }
+
+    // TODO comment
+    public void toggleAttentionMode(View v) {
+        doubleCheck("Toggle Attention Mode?", result -> {
+            if (result) {
+                if ((boolean) v.getTag()) {
+                    v.setTag(false);
+                    attention_toggle.setTextColor(deactivatedModeColor);
+                    sendCommand(Command.DEACTIVATE_ATTENTION_MODE);
+                } else {
+                    v.setTag(true);
+                    attention_toggle.setTextColor(Color.BLACK);
+                    sendCommand(Command.ACTIVATE_ATTENTION_MODE);
+                }
+            }
+        });
+    }
+
+    // TODO comment
+    public void toggleTransparencyMode(View v) {
+        doubleCheck("Toggle Transparency Mode?", result -> {
+            if (result) {
+                if ((boolean) v.getTag()) {
+                    v.setTag(false);
+                    transparency_toggle.setTextColor(deactivatedModeColor);
+                    sendCommand(Command.DEACTIVATE_TRANSPARENCY_MODE);
+                } else {
+                    v.setTag(true);
+                    transparency_toggle.setTextColor(Color.BLACK);
+                    sendCommand(Command.ACTIVATE_TRANSPARENCY_MODE);
+                }
+            }
+        });
     }
 }
