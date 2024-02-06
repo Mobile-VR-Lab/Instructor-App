@@ -85,7 +85,7 @@ public class ScriptParserTest {
 
         ScriptText scriptText = scene1.script.get(0);
         assertFalse(scriptText.isAction());
-        assertEquals("my script here 1", scriptText.text);
+        assertEquals("\n        my script here 1\n    ", scriptText.text);
     }
 
     @Test
@@ -131,7 +131,7 @@ public class ScriptParserTest {
 
         ScriptText scriptText1 = scene1.script.get(0);
         assertFalse(scriptText1.isAction());
-        assertEquals("my script here 3.\n        this is an", scriptText1.text);
+        assertEquals("\n        my script here 3.\n        this is an ", scriptText1.text);
 
         ScriptText scriptText2 = scene1.script.get(1);
         assertTrue(scriptText2.isAction());
@@ -143,7 +143,7 @@ public class ScriptParserTest {
 
         ScriptText scriptText3 = scene1.script.get(2);
         assertFalse(scriptText3.isAction());
-        assertEquals("what a paragraph.", scriptText3.text);
+        assertEquals("\n        what a paragraph.\n    ", scriptText3.text);
     }
 
     @Test

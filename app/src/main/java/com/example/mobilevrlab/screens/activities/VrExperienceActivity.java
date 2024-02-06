@@ -107,11 +107,7 @@ public class VrExperienceActivity extends AppCompatActivity {
         Button sceneButton = (Button) sceneButtonView.findViewById(R.id.scene_button);
         sceneButton.setText(text);
         sceneButton.setTag(index); // Storing index of scene into tag of view to be read from later
-        sceneButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                onSceneButtonClick((int) v.getTag());
-            }
-        });
+        sceneButton.setOnClickListener(v -> onSceneButtonClick((int) v.getTag()));
         return sceneButtonView;
     }
 
