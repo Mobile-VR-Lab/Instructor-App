@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.example.mobilevrlab.script.ScriptParser;
+import com.example.mobilevrlab.script.ScriptSingleton;
 import com.example.mobilevrlab.script.data.VrExperience;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -48,6 +49,7 @@ public class ScriptLoader {
                 }
 
                 if (vrExp != null) {
+                    ScriptSingleton.getInstance().setVrExperience(vrExp);
                     System.out.println(vrExp.toCombinedString()); // TODO remove in later issue
                 }
             }

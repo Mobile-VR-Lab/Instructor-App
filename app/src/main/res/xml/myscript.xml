@@ -10,4 +10,9 @@
         this is an <action id="5" type="highlight">action</action>
         what a paragraph.
     </scene>
+    <scene title="my title 4" id="4">
+        my script here 4.
+        this is an <action id="5" type="highlight">action 2</action>
+        what a <action id="5" type="highlight">good</action> paragraph.
+    </scene>
 </vrExperience>
