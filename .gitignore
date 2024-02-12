@@ -14,3 +14,5 @@
 .cxx
 /local.properties
 local.properties
+/app/build
+node_modules
