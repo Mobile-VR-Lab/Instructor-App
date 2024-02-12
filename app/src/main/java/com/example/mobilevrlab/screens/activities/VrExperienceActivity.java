@@ -81,7 +81,7 @@ public class VrExperienceActivity extends AppCompatActivity {
             scene_buttons_layout.addView(createSceneButton(sceneNames.get(i), i));
         }
 
-        RestClient.getInstance().subscribe(this::handleMessageReceived);
+//        RestClient.getInstance().subscribe(this::handleMessageReceived);
     }
 
     /**
@@ -195,15 +195,15 @@ public class VrExperienceActivity extends AppCompatActivity {
     }
 
     // TODO comment
-    public void sendCommand(Command command) {
-        RestClient.sendCommandToServer(command, (response, e) -> {
-            if (e != null) {
-                e.printStackTrace();
-            } else {
-                System.out.println(response);
-            }
-        });
-    }
+//    public void sendCommand(Command command) {
+//        RestClient.sendCommandToServer(command, (response, e) -> {
+//            if (e != null) {
+//                e.printStackTrace();
+//            } else {
+//                System.out.println(response);
+//            }
+//        });
+//    }
 
     // TODO comment
     public interface DoubleCheckCallback {
@@ -229,11 +229,11 @@ public class VrExperienceActivity extends AppCompatActivity {
                 if ((boolean) v.getTag()) {
                     v.setTag(false);
                     attention_toggle.setTextColor(deactivatedModeColor);
-                    sendCommand(Command.DEACTIVATE_ATTENTION_MODE);
+//                    sendCommand(Command.DEACTIVATE_ATTENTION_MODE);
                 } else {
                     v.setTag(true);
                     attention_toggle.setTextColor(Color.BLACK);
-                    sendCommand(Command.ACTIVATE_ATTENTION_MODE);
+//                    sendCommand(Command.ACTIVATE_ATTENTION_MODE);
                 }
             }
         });
@@ -246,11 +246,11 @@ public class VrExperienceActivity extends AppCompatActivity {
                 if ((boolean) v.getTag()) {
                     v.setTag(false);
                     transparency_toggle.setTextColor(deactivatedModeColor);
-                    sendCommand(Command.DEACTIVATE_TRANSPARENCY_MODE);
+//                    sendCommand(Command.DEACTIVATE_TRANSPARENCY_MODE);
                 } else {
                     v.setTag(true);
                     transparency_toggle.setTextColor(Color.BLACK);
-                    sendCommand(Command.ACTIVATE_TRANSPARENCY_MODE);
+//                    sendCommand(Command.ACTIVATE_TRANSPARENCY_MODE);
                 }
             }
         });

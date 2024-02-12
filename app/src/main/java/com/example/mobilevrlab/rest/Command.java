@@ -1,6 +1,6 @@
 package com.example.mobilevrlab.rest;
 
-public enum Command {
+public enum Command { // TODO remove?
     ACTIVATE_ATTENTION_MODE,
     DEACTIVATE_ATTENTION_MODE,
     ACTIVATE_TRANSPARENCY_MODE,

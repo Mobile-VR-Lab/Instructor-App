@@ -1,5 +1,6 @@
 package com.example.mobilevrlab.screens.controller;
 
+import com.example.mobilevrlab.rest.RestRequest;
 import com.example.mobilevrlab.script.ScriptSingleton;
 import com.example.mobilevrlab.script.data.VrExperience;
 
@@ -25,6 +26,14 @@ public class VrExperienceController {
     }
 
     /**
+     * Create a changeScene request to be sent through the RestClient.
+     */
+    protected void sendChangeSceneRequest() {
+        // TODO get scene ID from script data from currentScene index
+        new RestRequest().postChangeScene(currentScene);
+    }
+
+    /**
      * Advance the scene, if possible. If at the end of the scenes list, do not advance.
      *
      * @return true if can advance, false if cannot
@@ -32,6 +41,7 @@ public class VrExperienceController {
     public boolean nextScene() {
         if (currentScene + 1 < script.sceneList.size()) {
             currentScene++;
+            sendChangeSceneRequest();
             return true;
         } else {
             return false;
@@ -46,6 +56,7 @@ public class VrExperienceController {
     public boolean previousScene() {
         if (currentScene - 1 >= 0) {
             currentScene--;
+            sendChangeSceneRequest();
             return true;
         } else {
             return false;
@@ -61,6 +72,7 @@ public class VrExperienceController {
     public boolean setSceneIndex(int index) {
         if (index >= 0 && index < script.sceneList.size()) {
             currentScene = index;
+            sendChangeSceneRequest();
             return true;
         } else {
             return false;

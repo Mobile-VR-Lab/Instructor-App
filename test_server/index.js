@@ -1,9 +1,11 @@
 const express = require('express');
+const ip = require('ip'); // To get ip of localhost easily
 
 const app = express();
 
 // Option to access the data sent in the body of a post request
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Print out relevant data about request
 app.use((req, res, next) => {
@@ -47,4 +49,4 @@ app.post('/command/:type/', (req, res) => {
 
 
 // Start app at: http://localhost:3000/
-app.listen(3000, () => console.log('test server is listening on port 3000. \nhttp://localhost:3000/'));
+app.listen(3000, () => console.log('test server is listening on port 3000. \nhttp://' + ip.address() + ':3000/'));
