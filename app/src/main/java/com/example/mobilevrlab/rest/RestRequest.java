@@ -7,10 +7,12 @@ import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
+/**
+ * A class to handle creating a specific request for the Rest Client to execute.
+ * This sends the request off to a new Async Task Runner to be executed on a background thread.
+ */
 public class RestRequest {
-    // TODO idea: could add callback to this and accept this class into asynctaskrunner, then callback post ececute
-
-    public void getHeadsets() {
+    public void getHeadsets() { // TODO test and cleanup in future issue-41 here
         Request request = new Request.Builder()
                 .url(RestClient.baseUrl + "headsets")
                 .get()
@@ -18,7 +20,7 @@ public class RestRequest {
         new AsyncTaskRunner().execute(request);
     }
 
-    public void postChangeScene(int scene) { // TODO make this a class so it can be constructed dynamically in the future
+    public void postChangeScene(String scene) {
         // Serialize scene in json
         JSONObject json = new JSONObject();
         try {
@@ -27,7 +29,7 @@ public class RestRequest {
             throw new RuntimeException(e);
         }
         String data = json.toString();
-        System.out.println(data); // TODO remove or log
+//        System.out.println(data); // TODO add logger in future issue
 
         RequestBody body = RequestBody.create(data, MediaType.get("application/json; charset=utf-8"));
 

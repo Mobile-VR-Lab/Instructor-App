@@ -17,8 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobilevrlab.R;
-import com.example.mobilevrlab.rest.Command;
-import com.example.mobilevrlab.rest.RestClient;
 import com.example.mobilevrlab.screens.controller.VrExperienceController;
 
 import java.util.ArrayList;

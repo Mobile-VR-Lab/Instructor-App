@@ -11,16 +11,6 @@ import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mobilevrlab.R;
-import com.example.mobilevrlab.rest.Command;
-import com.example.mobilevrlab.rest.RestClient;
-
-import java.util.List;
-
-import com.example.mobilevrlab.rest.RestRequest;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class HeadsetStatusActivity extends AppCompatActivity {
 
@@ -72,32 +62,6 @@ public class HeadsetStatusActivity extends AppCompatActivity {
     private void getHeadsetStatuses() {
         linearLayoutHeadsets.removeAllViews();
 
-        // Return a list of HeadsetStatus objects
-//        RestClient.sendCommandToServer(Command.GET_STATUSES, (response, e) -> {
-//            if (e != null) {
-//                e.printStackTrace();
-//            } else {
-//                //System.out.println(response);
-//                // Parse the JSON response into a List of HeadsetStatus objects
-//                Type listType = new TypeToken<List<HeadsetStatus>>(){}.getType();
-//                List<HeadsetStatus> headsetStatuses = new Gson().fromJson(response, listType);
-//                // Iterate over the headset statuses and create a view for each one
-//                if (headsetStatuses == null) {
-//                    System.out.println("Headset statuses is null");
-//                    return;
-//                }
-//                for (HeadsetStatus status : headsetStatuses) {
-//                    if (status == null) {
-//                        System.out.println("Headset status is null");
-//                        continue;
-//                    }
-//                    View headsetStatusView = createHeadsetStatusView(status);
-//                    linearLayoutHeadsets.addView(headsetStatusView);
-//                }
-//            }
-//        });
-
-        // TODO fix later with real request, add controller, etc.
-//        new RestRequest().getHeadsets(); // TODO move to headset activity
+        // TODO in future issue-41
     }
 }

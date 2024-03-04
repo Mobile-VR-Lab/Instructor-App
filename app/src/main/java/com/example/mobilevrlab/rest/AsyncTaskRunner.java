@@ -5,6 +5,9 @@ import android.os.AsyncTask;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * An Async Task Runner used to execute Rest Client Requests not on the UI thread.
+ */
 public class AsyncTaskRunner extends AsyncTask<Request, String, String> {
     @Override
     protected String doInBackground(Request... requests) {
@@ -13,48 +16,5 @@ public class AsyncTaskRunner extends AsyncTask<Request, String, String> {
         return null;
     }
 
-    // TODO send data back to UI thread for headsets requests (callback?)
-
-//        private String resp;
-//        ProgressDialog progressDialog;
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//            publishProgress("Sleeping..."); // Calls onProgressUpdate()
-//            try {
-//                int time = Integer.parseInt(params[0])*1000;
-//
-//                Thread.sleep(time);
-//                resp = "Slept for " + params[0] + " seconds";
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//                resp = e.getMessage();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                resp = e.getMessage();
-//            }
-//            return resp;
-//        }
-//
-//
-//        @Override
-//        protected void onPostExecute(String result) {
-//            // execution of result of Long time consuming operation
-//            finalResult.setText(result);
-//        }
-//
-//
-//        @Override
-//        protected void onPreExecute() {
-//            progressDialog = ProgressDialog.show(MainActivity.this,
-//                    "ProgressDialog",
-//                    "Wait for "+time.getText().toString()+ " seconds");
-//        }
-//
-//
-//        @Override
-//        protected void onProgressUpdate(String... text) {
-//            finalResult.setText(text[0]);
-//
-//        }
+    // TODO send data back to UI thread for headsets requests (callback?) in future issue-41 here
 }
