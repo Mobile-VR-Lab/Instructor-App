@@ -1,9 +1,11 @@
 package com.example.mobilevrlab.screens.controller;
 
+import com.example.mobilevrlab.rest.RestRequest;
 import com.example.mobilevrlab.script.ScriptSingleton;
 import com.example.mobilevrlab.script.data.VrExperience;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,6 +27,17 @@ public class VrExperienceController {
     }
 
     /**
+     * Create a Change Scene Request to be sent through the RestClient on a background thread.
+     */
+    protected void sendChangeSceneRequest() {
+        Optional<String> opt = getVrSceneId();
+        if (opt.isPresent()) {
+            new RestRequest().postChangeScene(opt.get());
+        }
+        System.out.println("Error: No current scene ID was able to be retrieved. No scene change request sent."); // TODO add logger in future issue
+    }
+
+    /**
      * Advance the scene, if possible. If at the end of the scenes list, do not advance.
      *
      * @return true if can advance, false if cannot
@@ -32,6 +45,7 @@ public class VrExperienceController {
     public boolean nextScene() {
         if (currentScene + 1 < script.sceneList.size()) {
             currentScene++;
+            sendChangeSceneRequest();
             return true;
         } else {
             return false;
@@ -46,6 +60,7 @@ public class VrExperienceController {
     public boolean previousScene() {
         if (currentScene - 1 >= 0) {
             currentScene--;
+            sendChangeSceneRequest();
             return true;
         } else {
             return false;
@@ -61,6 +76,7 @@ public class VrExperienceController {
     public boolean setSceneIndex(int index) {
         if (index >= 0 && index < script.sceneList.size()) {
             currentScene = index;
+            sendChangeSceneRequest();
             return true;
         } else {
             return false;
@@ -86,6 +102,21 @@ public class VrExperienceController {
             return script.sceneList.get(currentScene).title;
         } else {
             return "Error: Scene index out of bounds"; // TODO replace with error logger in future issue
+        }
+    }
+
+    /**
+     * Gets the ID of the scene specified in the script file for the current scene
+     * based off of the current scene index.
+     *
+     * @return Optional String of current scene ID or empty Optional
+     */
+    public Optional<String> getVrSceneId() { // TODO change ID from int to string
+        if (currentScene >= 0 && currentScene < script.sceneList.size()) {
+            return Optional.of(script.sceneList.get(currentScene).id);
+        } else {
+            System.out.println("Error: Scene index out of bounds"); // TODO replace with error logger in future issue
+            return Optional.empty();
         }
     }
 

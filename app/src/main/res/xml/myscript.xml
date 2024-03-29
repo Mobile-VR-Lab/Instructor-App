@@ -1,18 +1,18 @@
 <vrExperience title="my vr experience">
-    <scene title="my title 1" id="1">
+    <scene title="my title 1" id="id1">
         my script here 1
     </scene>
-    <scene title="my title 2" id="2">
+    <scene title="my title 2" id="id2">
         my script here 2
     </scene>
-    <scene title="my title 3" id="3">
+    <scene title="my title 3" id="id3">
         my script here 3.
-        this is an <action id="5" type="highlight">action</action>
+        this is an <action id="id5" type="highlight">action</action>
         what a paragraph.
     </scene>
-    <scene title="my title 4" id="4">
+    <scene title="my title 4" id="id4">
         my script here 4.
-        this is an <action id="5" type="highlight">action 2</action>
-        what a <action id="5" type="highlight">good</action> paragraph.
+        this is an <action id="id5" type="highlight">action 2</action>
+        what a <action id="id6" type="highlight">good</action> paragraph.
     </scene>
 </vrExperience>

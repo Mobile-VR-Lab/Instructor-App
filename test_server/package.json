@@ -1,0 +1,15 @@
+{
+  "name": "test_server",
+  "version": "1.0.0",
+  "description": "Test server for android app client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ip": "^2.0.0"
+  }
+}
