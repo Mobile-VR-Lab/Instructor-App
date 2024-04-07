@@ -44,6 +44,14 @@ app.post('/command/:type/', (req, res) => {
         console.log("FocusOnObject command");
         console.log("object=", req.body.object);
     }
+    if (type == 3) {
+        console.log("AttentionMode command");
+        console.log("attention=", req.body.attention);
+    }
+    if (type == 4) {
+        console.log("TransparencyMode command");
+        console.log("transparency=", req.body.transparency);
+    }
     res.send('Successful response.');
 });
 
