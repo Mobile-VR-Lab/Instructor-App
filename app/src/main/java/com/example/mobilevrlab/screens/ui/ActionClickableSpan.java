@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.example.mobilevrlab.rest.RestRequest;
 import com.example.mobilevrlab.script.data.Action;
 
 /**
@@ -31,6 +32,7 @@ public class ActionClickableSpan extends ClickableSpan {
     @Override
     public void onClick(@NonNull View widget) {
         // TODO replace with a REST API call in a future issue
+        new RestRequest().postFocusOnObject(action.id);
         System.out.println("TODO action REST API call for: " + action.toString());
     }
 }

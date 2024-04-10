@@ -1,0 +1,10 @@
+<vrExperience title="Demo vr experience">
+    <scene title="Coral Scene" id="0">
+        my script here 1.
+        this is an <action id="CoralModel" type="highlight">action</action>
+        what a paragraph.
+    </scene>
+    <scene title="Green Scene" id="1">
+        my script here 2.
+    </scene>
+</vrExperience>

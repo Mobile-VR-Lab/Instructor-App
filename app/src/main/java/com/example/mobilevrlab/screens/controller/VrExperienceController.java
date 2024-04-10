@@ -32,7 +32,7 @@ public class VrExperienceController {
     protected void sendChangeSceneRequest() {
         Optional<String> opt = getVrSceneId();
         if (opt.isPresent()) {
-            new RestRequest().postChangeScene(opt.get());
+            new RestRequest().postChangeScene(Integer.parseInt(opt.get()));
         } else {
             System.out.println("Error: No current scene ID was able to be retrieved. No scene change request sent."); // TODO add logger in future issue
         }

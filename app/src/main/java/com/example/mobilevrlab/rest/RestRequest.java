@@ -20,7 +20,7 @@ public class RestRequest {
         new AsyncTaskRunner().execute(request);
     }
 
-    public void postChangeScene(String scene) {
+    public void postChangeScene(int scene) {
         // Serialize scene in json
         JSONObject json = new JSONObject();
         try {
@@ -36,6 +36,26 @@ public class RestRequest {
         // Construct the request
         Request request = new Request.Builder()
                 .url(RestClient.baseUrl + "command/1")
+                .post(body)
+                .build();
+        new AsyncTaskRunner().execute(request);
+    }
+
+    public void postFocusOnObject(String obj) {
+        // Serialize scene in json
+        JSONObject json = new JSONObject();
+        try {
+            json.put("object", obj);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        String data = json.toString();
+
+        RequestBody body = RequestBody.create(data, MediaType.get("application/json; charset=utf-8"));
+
+        // Construct the request
+        Request request = new Request.Builder()
+                .url(RestClient.baseUrl + "command/2")
                 .post(body)
                 .build();
         new AsyncTaskRunner().execute(request);

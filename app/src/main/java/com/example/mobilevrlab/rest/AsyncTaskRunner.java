@@ -12,7 +12,12 @@ public class AsyncTaskRunner extends AsyncTask<Request, String, String> {
     @Override
     protected String doInBackground(Request... requests) {
         // Synchronous call of rest client to endpoint in background thread (separate from UI thread)
-        Response response = RestClient.getInstance().syncCall(requests[0]);
+        try {
+            Response response = RestClient.getInstance().syncCall(requests[0]);
+        } catch (Exception e) {
+            System.out.println("ERROR: Rest Client unable to send message!");
+            // TODO eventually pass back a toast request to the user???
+        }
         return null;
     }
 
