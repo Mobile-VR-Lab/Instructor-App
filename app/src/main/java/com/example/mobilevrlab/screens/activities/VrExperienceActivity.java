@@ -193,17 +193,6 @@ public class VrExperienceActivity extends AppCompatActivity {
     }
 
     // TODO comment
-//    public void sendCommand(Command command) {
-//        RestClient.sendCommandToServer(command, (response, e) -> {
-//            if (e != null) {
-//                e.printStackTrace();
-//            } else {
-//                System.out.println(response);
-//            }
-//        });
-//    }
-
-    // TODO comment
     public interface DoubleCheckCallback {
         void onResult(boolean result);
     }
@@ -227,11 +216,11 @@ public class VrExperienceActivity extends AppCompatActivity {
                 if ((boolean) v.getTag()) {
                     v.setTag(false);
                     attention_toggle.setTextColor(deactivatedModeColor);
-//                    sendCommand(Command.DEACTIVATE_ATTENTION_MODE);
+                    controller.sendChangeAttentionModeRequest(false);
                 } else {
                     v.setTag(true);
                     attention_toggle.setTextColor(Color.BLACK);
-//                    sendCommand(Command.ACTIVATE_ATTENTION_MODE);
+                    controller.sendChangeAttentionModeRequest(true);
                 }
             }
         });
@@ -244,11 +233,11 @@ public class VrExperienceActivity extends AppCompatActivity {
                 if ((boolean) v.getTag()) {
                     v.setTag(false);
                     transparency_toggle.setTextColor(deactivatedModeColor);
-//                    sendCommand(Command.DEACTIVATE_TRANSPARENCY_MODE);
+                    controller.sendChangeTransparencyModeRequest(false);
                 } else {
                     v.setTag(true);
                     transparency_toggle.setTextColor(Color.BLACK);
-//                    sendCommand(Command.ACTIVATE_TRANSPARENCY_MODE);
+                    controller.sendChangeTransparencyModeRequest(true);
                 }
             }
         });

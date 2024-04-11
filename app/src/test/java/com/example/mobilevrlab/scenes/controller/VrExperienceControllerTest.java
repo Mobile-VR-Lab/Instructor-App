@@ -6,7 +6,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.powermock.api.mockito.PowerMockito.doReturn;
 import static org.powermock.api.mockito.PowerMockito.spy;
+import static org.powermock.api.mockito.PowerMockito.whenNew;
 
+import com.example.mobilevrlab.rest.RestRequest;
 import com.example.mobilevrlab.screens.controller.VrExperienceController;
 import com.example.mobilevrlab.script.ScriptSingleton;
 import com.example.mobilevrlab.script.data.Action;
@@ -18,6 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
@@ -27,6 +30,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RunWith(PowerMockRunner.class)
+@PrepareForTest(VrExperienceController.class)
 public class VrExperienceControllerTest {
 
     @Mock
@@ -43,10 +47,14 @@ public class VrExperienceControllerTest {
             )))
     ));
 
+    @Mock
+    RestRequest mockRRequest;
+
     @Before
-    public void setup() {
+    public void setup() throws Exception {
         ScriptSingleton.getInstance().setVrExperience(mockScript);
         Whitebox.setInternalState(mockScript, "sceneList", injectSceneList);
+        whenNew(RestRequest.class).withNoArguments().thenReturn(mockRRequest); // Don't actually call into RestRequest class
     }
 
     @Test

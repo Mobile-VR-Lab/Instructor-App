@@ -40,4 +40,44 @@ public class RestRequest {
                 .build();
         new AsyncTaskRunner().execute(request);
     }
+
+    public void postChangeAttentionMode(boolean mode) {
+        // Serialize scene in json
+        JSONObject json = new JSONObject();
+        try {
+            json.put("attention", mode);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        String data = json.toString();
+
+        RequestBody body = RequestBody.create(data, MediaType.get("application/json; charset=utf-8"));
+
+        // Construct the request
+        Request request = new Request.Builder()
+                .url(RestClient.baseUrl + "command/3")
+                .post(body)
+                .build();
+        new AsyncTaskRunner().execute(request);
+    }
+
+    public void postChangeTransparencyMode(boolean mode) {
+        // Serialize scene in json
+        JSONObject json = new JSONObject();
+        try {
+            json.put("transparency", mode);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        String data = json.toString();
+
+        RequestBody body = RequestBody.create(data, MediaType.get("application/json; charset=utf-8"));
+
+        // Construct the request
+        Request request = new Request.Builder()
+                .url(RestClient.baseUrl + "command/4")
+                .post(body)
+                .build();
+        new AsyncTaskRunner().execute(request);
+    }
 }

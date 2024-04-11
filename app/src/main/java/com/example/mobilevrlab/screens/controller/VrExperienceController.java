@@ -33,8 +33,23 @@ public class VrExperienceController {
         Optional<String> opt = getVrSceneId();
         if (opt.isPresent()) {
             new RestRequest().postChangeScene(opt.get());
+        } else {
+            System.out.println("Error: No current scene ID was able to be retrieved. No scene change request sent."); // TODO add logger in future issue
         }
-        System.out.println("Error: No current scene ID was able to be retrieved. No scene change request sent."); // TODO add logger in future issue
+    }
+
+    /**
+     * Create a Change Attention Mode Request to be sent through the RestClient on a background thread.
+     */
+    public void sendChangeAttentionModeRequest(boolean mode) {
+        new RestRequest().postChangeAttentionMode(mode);
+    }
+
+    /**
+     * Create a Change Transparency Mode Request to be sent through the RestClient on a background thread.
+     */
+    public void sendChangeTransparencyModeRequest(boolean mode) {
+        new RestRequest().postChangeTransparencyMode(mode);
     }
 
     /**
