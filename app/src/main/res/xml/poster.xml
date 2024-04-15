@@ -1,0 +1,44 @@
+<vrExperience title="Ocean VR Experience">
+    <scene title="Introduction" id="0">
+        my script here 1.
+    </scene>
+    <scene title="Brain Coral" id="1">
+        my script here 2.
+    </scene>
+    <scene title="Staghorn Coral" id="1">
+        my script here 2.
+    </scene>
+    <scene title="Pillar Coral" id="1">
+        my script here 2.
+    </scene>
+    <scene title="Bubble Coral" id="1">
+        Next, we are going to look at bubble coral.
+
+        Now, bubble coral gets its name because, well, it looks like bubbles! These corals have little round parts called <action id="Polyp" type="highlight">polyps</action> that are kind of like bubbles you blow with a wand. They come in different sizes, from small bubbles to big ones that look like grapes.
+
+        Bubble coral live deep in the ocean. It likes to attach itself to <action id="Rock" type="highlight">rocks</action> or other hard stuff on the ocean floor. You won't usually find them in shallow water because they prefer to hang out in the deeper parts where it's a bit darker.
+
+        One super cool thing about bubble coral is that it has tiny, special cells that help it catch food. These <action id="Cells" type="highlight">cells</action> are like tiny harpoons that shoot out and grab onto tiny floating animals called plankton. But guess what? Bubble coral also has some special friends living inside it called <action id="Zooxanthellae>" type="highlight">zooxanthellae</action>. These little buddies help the coral by giving it food they make from sunlight. It's like the coral has its own little garden inside!
+
+        Now, just like us, bubble coral can sometimes get sick if things around them aren't just right. Things like too much <action id="Polyp" type="highlight">pollution</action> or water that's too warm can make them feel not so good. When they get stressed out, they might lose their special friends, the zooxanthellae, and turn white. But don't worry, scientists are working hard to help keep our coral friends healthy!
+
+        Bubble coral is important because it gives homes to lots of little sea creatures. <action id="FishAndShrimp" type="highlight">Fish and shrimp</action> like to hide in its bubbly parts to stay safe from bigger animals that might want to eat them. So, it's like a little city under the sea!
+
+        In the end, bubble coral is like a superhero of the ocean, giving homes to lots of sea creatures and adding beauty to the underwater world. So, let's all cheer for bubble coral!
+    </scene>
+    <scene title="Fire Coral" id="1">
+        my script here 2.
+    </scene>
+    <scene title="Gorgonian Coral" id="1">
+        my script here 2.
+    </scene>
+    <scene title="Finger Coral" id="1">
+        my script here 2.
+    </scene>
+    <scene title="Plate Coral" id="1">
+        my script here 2.
+    </scene>
+    <scene title="Conclusion" id="1">
+        my script here 2.
+    </scene>
+</vrExperience>
