@@ -20,14 +20,9 @@ public class RestRequest {
         new AsyncTaskRunner().execute(request);
     }
 
-    public void postChangeScene(String scene) {
+    // A templated way to create a post "command" request, as define in the Headset Control Protocol on the server
+    private void postCommand(int commandId, JSONObject json) {
         // Serialize scene in json
-        JSONObject json = new JSONObject();
-        try {
-            json.put("scene", scene);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
         String data = json.toString();
 //        System.out.println(data); // TODO add logger in future issue
 
@@ -35,10 +30,34 @@ public class RestRequest {
 
         // Construct the request
         Request request = new Request.Builder()
-                .url(RestClient.baseUrl + "command/1")
+                .url(RestClient.baseUrl + "command/" + commandId)
                 .post(body)
                 .build();
         new AsyncTaskRunner().execute(request);
+    }
+
+    public void postChangeScene(int scene) {
+        // Serialize scene in json
+        JSONObject json = new JSONObject();
+        try {
+            json.put("scene", scene);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        postCommand(1, json);
+    }
+
+    public void postFocusOnObject(String obj) {
+        // Serialize scene in json
+        JSONObject json = new JSONObject();
+        try {
+            json.put("object", obj);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        postCommand(2, json);
     }
 
     public void postChangeAttentionMode(boolean mode) {
@@ -49,16 +68,8 @@ public class RestRequest {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        String data = json.toString();
 
-        RequestBody body = RequestBody.create(data, MediaType.get("application/json; charset=utf-8"));
-
-        // Construct the request
-        Request request = new Request.Builder()
-                .url(RestClient.baseUrl + "command/3")
-                .post(body)
-                .build();
-        new AsyncTaskRunner().execute(request);
+        postCommand(3, json);
     }
 
     public void postChangeTransparencyMode(boolean mode) {
@@ -69,15 +80,7 @@ public class RestRequest {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        String data = json.toString();
 
-        RequestBody body = RequestBody.create(data, MediaType.get("application/json; charset=utf-8"));
-
-        // Construct the request
-        Request request = new Request.Builder()
-                .url(RestClient.baseUrl + "command/4")
-                .post(body)
-                .build();
-        new AsyncTaskRunner().execute(request);
+        postCommand(4, json);
     }
 }

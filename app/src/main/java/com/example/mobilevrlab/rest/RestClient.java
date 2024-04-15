@@ -9,7 +9,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class RestClient {
-    public static final String baseUrl = "http://10.0.0.201:3000/"; // replace with actual server URL
+    public static final String baseUrl = "http://192.168.1.169:8080/"; // replace with actual server URL
 
     public final OkHttpClient client;
 
