@@ -9,7 +9,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class RestClient {
-    public static final String baseUrl = "http://192.168.1.169:8080/"; // replace with actual server URL
+
+    public static String baseIp = "192.168.1.169:8080";
+    public static String baseUrl = "http://192.168.1.169:8080/"; // replace with actual server URL
 
     public final OkHttpClient client;
 
@@ -30,6 +32,12 @@ public class RestClient {
             instance = new RestClient();
         }
         return instance;
+    }
+
+    // Thread-safe method to update the baseIp & baseUrl for the server
+    public static synchronized void setBaseIp(String ip) {
+        baseIp = ip;
+        baseUrl = "http://" + ip + "/";
     }
 
     /**

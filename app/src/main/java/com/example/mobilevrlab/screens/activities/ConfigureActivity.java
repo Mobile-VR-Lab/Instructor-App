@@ -4,15 +4,21 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mobilevrlab.R;
+import com.example.mobilevrlab.rest.RestClient;
 import com.example.mobilevrlab.screens.controller.ScriptLoader;
 
 public class ConfigureActivity extends AppCompatActivity {
 
     ScriptLoader scriptLoader;
+
+    EditText serverUrlTextBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +26,8 @@ public class ConfigureActivity extends AppCompatActivity {
         setContentView(R.layout.configure_activity);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE);
         scriptLoader = new ScriptLoader();
+        serverUrlTextBox = (EditText) findViewById(R.id.serverUrlTextBox);
+        serverUrlTextBox.setText(RestClient.baseIp);
     }
 
     // Go back to the home screen if the "x" button is clicked
@@ -38,5 +46,17 @@ public class ConfigureActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
         super.onActivityResult(requestCode, resultCode, resultData);
         scriptLoader.onActivityResult(requestCode, resultCode, resultData, this.RESULT_OK, getContentResolver());
+    }
+
+    // Set the new server IP inside of the RestClient
+    public void onSaveServerIp(View view) {
+        // Save new Server IP
+        System.out.println("Saving new Server IP: " + serverUrlTextBox.getText());
+        RestClient.setBaseIp(serverUrlTextBox.getText().toString());
+        Toast.makeText(this, "Server IP Saved", Toast.LENGTH_SHORT).show();
+
+        // Get user focus off of textbox for QOL
+        serverUrlTextBox.clearFocus();
+        // TODO in a future issue: dismiss the keyboard here as well
     }
 }

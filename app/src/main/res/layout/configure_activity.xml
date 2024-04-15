@@ -38,71 +38,139 @@
             android:gravity="center|top"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:background="#DDDDDD"
-                android:gravity="left|center_vertical"
-                android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="#DDDDDD"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/mobile_vr_lab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center"
-                    android:text="Configure"
-                    android:textColor="@color/_bg__settings_button_ek1_color"
-                    android:textSize="34sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/mobile_vr_lab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="Configure"
+                android:textColor="@color/_bg__settings_button_ek1_color"
+                android:textSize="34sp"
+                android:textStyle="bold" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginRight="20dp"
-                    android:onClick="goBack"
-                    app:srcCompat="@drawable/x" />
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="20dp"
+                android:onClick="goBack"
+                app:srcCompat="@drawable/x" />
+
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="500dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="500dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="Script File"
-                android:textColor="#000000"
-                android:textSize="24dp"
-                android:textStyle="bold" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Server IP"
+                    android:textColor="#000000"
+                    android:textSize="24dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Set the IP for the HCP Server."
+                    android:textColor="#000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="http://"
+                        android:textColor="#000000" />
+
+                    <EditText
+                        android:id="@+id/serverUrlTextBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="HCP Server IP"
+                        android:inputType="text"
+                        android:text="url" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#D7D7D7"
+                    android:onClick="onSaveServerIp"
+                    android:text="Save IP"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="500dp"
                 android:layout_height="wrap_content"
-                android:text="Select a script file to use for this VR Experience."
-                android:textColor="#000000" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="#D7D7D7"
-                android:onClick="onSelectScriptFileClick"
-                android:text="Select File"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Script File"
+                    android:textColor="#000000"
+                    android:textSize="24dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select a script file to use for this VR Experience."
+                    android:textColor="#000000" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#D7D7D7"
+                    android:onClick="onSelectScriptFileClick"
+                    android:text="Select File"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            </LinearLayout>
         </LinearLayout>
 
 
