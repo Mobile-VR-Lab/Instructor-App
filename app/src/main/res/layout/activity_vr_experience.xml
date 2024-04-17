@@ -78,6 +78,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="20dp"
+                android:onClick="toSettingsActivity"
                 app:srcCompat="@drawable/gear" />
         </LinearLayout>
 

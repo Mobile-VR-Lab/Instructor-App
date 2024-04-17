@@ -16,6 +16,7 @@ public class AsyncTaskRunner extends AsyncTask<Request, String, String> {
             Response response = RestClient.getInstance().syncCall(requests[0]);
         } catch (Exception e) {
             System.out.println("ERROR: Rest Client unable to send message!");
+            System.out.println(e);
             // TODO eventually pass back a toast request to the user???
         }
         return null;
