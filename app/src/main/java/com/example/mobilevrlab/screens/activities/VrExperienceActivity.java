@@ -1,6 +1,7 @@
 package com.example.mobilevrlab.screens.activities;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -186,9 +187,15 @@ public class VrExperienceActivity extends AppCompatActivity {
         });
     }
 
-    // TODO comment
+    // Open the headset status activity
     public void toHeadsetStatusActivity(View view) {
         Intent intent = new Intent(this, HeadsetStatusActivity.class);
+        startActivity(intent);
+    }
+
+    // Open the settings activity
+    public void toSettingsActivity(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
